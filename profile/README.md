@@ -1,11 +1,6 @@
-<!--
-  Org profile README for github.com/mithraeums
-  Place this at:  github.com/mithraeums/.github  →  profile/README.md
--->
-
 <p align="center">
   <a href="https://mithraeums.github.io">
-    <img src="https://mithraeums.github.io/assets/banner-org-dark.svg" alt="mithraeum — tools cut from one stone" width="100%"/>
+    <img src="https://mithraeums.github.io/assets/banner-mithraeum-dark.svg" alt="mithraeum" width="100%"/>
   </a>
 </p>
 
@@ -39,7 +34,7 @@
   <tr>
     <td align="center"><sub>— 02 —</sub></td>
     <td>
-      <b><a href="https://github.com/mithraeums/hakoCLAW">hakoCLAW</a></b> &nbsp;<code>hakoc</code><br>
+      <b><a href="https://github.com/mithraeums/hakoCLAW">hakoCLAW</a></b> &nbsp;<code>爪</code> &nbsp;<sub><code>hakoc</code></sub><br>
       <sub>Standalone AI agent CLI. Same code that powers Rei inside hako. Anthropic, OpenAI-compat, Ollama. Tool-use, sessions, skills.</sub>
     </td>
   </tr>
@@ -73,7 +68,7 @@
 ## Install
 
 ```sh
-# hakoCLAW agent (macOS / Linux / FreeBSD / WSL)
+# hakoCLAW agent — macOS / Linux / FreeBSD / WSL
 curl -fsSL https://mithraeums.github.io/install.sh | sh
 ```
 
