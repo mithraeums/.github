@@ -34,8 +34,8 @@
   <tr>
     <td align="center"><sub>— 02 —</sub></td>
     <td>
-      <b><a href="https://github.com/mithraeums/hakoCLAW">hakoCLAW</a></b> &nbsp;<code>爪</code> &nbsp;<sub><code>hakoc</code></sub><br>
-      <sub>Standalone AI agent CLI. Same code that powers Rei inside hako. Anthropic, OpenAI-compat, Ollama. Tool-use, sessions, skills.</sub>
+      <b><a href="https://github.com/mithraeums/hakoCLAW">hakoCLAW</a></b> &nbsp;<code>爪</code> &nbsp;<br>
+      <sub>Standalone AI agent CLI. Run with <code>hakoc</code>. Same code that powers Rei inside hako. Anthropic, OpenAI-compat, Ollama. Tool-use, sessions, skills.</sub>
     </td>
   </tr>
   <tr>
@@ -69,13 +69,12 @@
 
 ```sh
 # hakoCLAW agent — macOS / Linux / FreeBSD / WSL
-curl -fsSL https://mithraeums.github.io/install.sh | sh
+curl -fsSL https://mithraeums.github.io/hakoCLAW.sh | sh
 ```
 
 ```sh
-# hako editor — clone + make
-git clone https://github.com/mithraeums/hako
-cd hako && make
+# hako editor — macOS / Linux / FreeBSD / WSL
+git clone https://mithraeums.github.io/hako.sh | sh
 ```
 
 <br>
@@ -95,3 +94,4 @@ cd hako && make
 <p align="center">
   <sub><code>mithraeum</code> — an underground chamber for the rites of Mithras. We build small rooms.</sub>
 </p>
+
