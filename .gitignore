@@ -1,8 +1,9 @@
 hako/
-hakoAI/
-hakoCLAW/
+hako-code/
+hako-edit/
 mithraeums.github.io/
 skills/
+assets/
 *.swp
 .DS_Store
 
