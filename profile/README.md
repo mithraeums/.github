@@ -26,8 +26,8 @@
   <tr>
     <td width="120" align="center"><sub>— 01 —</sub></td>
     <td>
-      <b><a href="https://github.com/mithraeums/hako">hako</a> Local model family</b><br>
-      <sub>Qwen2.5-Coder bases + a hako SYSTEM wrap, fine-tunes queued. Live today:<br>
+      <b><a href="https://github.com/mithraeums/hako">hako</a> Local model family + native C engine</b><br>
+      <sub>From-scratch inference runtime — own loader, Q4_K/Q6_K + int8 kernels, BPE. No llama.cpp, no ollama. Qwen2.5-Coder bases + a hako SYSTEM wrap, fine-tunes queued. Live today:<br>
       <code>hako-sho-stock</code> — mini · 3B<br>
       <code>hako-koi-mini-stock</code> — mid-small · 7B<br>
       koi (mid · 14B/32B) queued, samurai (max · 50B+) reserved.</sub>
@@ -73,8 +73,8 @@
 ## Install
 
 ```sh
-# hakm · the models suite (requires ollama currently, working on a runner)
-curl -fsSL https://mithraeums.github.io/hakm.sh | sh
+# hakm · the models suite — native C engine, no ollama, no llama.cpp
+git clone https://github.com/mithraeums/hako && cd hako/engine && make
 
 # hako · the agent
 curl -fsSL https://mithraeums.github.io/hako.sh | sh
