@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="1024" height="1024">
+  <rect width="240" height="240" fill="#0a0a09"/>
+  <rect x="6" y="6" width="228" height="228" fill="none" stroke="#4a463d" stroke-width="1"/>
+  <line x1="40" y1="108" x2="200" y2="108" stroke="#4a463d" stroke-width="1" stroke-dasharray="3 4"/>
+  <path d="M40 204 V108 a80 80 0 0 1 160 0 V204" fill="none" stroke="#d8d2c2" stroke-width="3"/>
+  <line x1="20" y1="204" x2="220" y2="204" stroke="#d8d2c2" stroke-width="3"/>
+  <circle cx="120" cy="118" r="22" fill="#b89656"/>
+  <circle cx="120" cy="118" r="34" fill="none" stroke="#b89656" stroke-width="0.5" opacity="0.4"/>
+  <line x1="6" y1="6" x2="6" y2="20" stroke="#b89656" stroke-width="1"/>
+  <line x1="6" y1="6" x2="20" y2="6" stroke="#b89656" stroke-width="1"/>
+  <line x1="234" y1="6" x2="220" y2="6" stroke="#b89656" stroke-width="1"/>
+  <line x1="234" y1="6" x2="234" y2="20" stroke="#b89656" stroke-width="1"/>
+  <line x1="6" y1="234" x2="6" y2="220" stroke="#b89656" stroke-width="1"/>
+  <line x1="6" y1="234" x2="20" y2="234" stroke="#b89656" stroke-width="1"/>
+  <line x1="234" y1="234" x2="220" y2="234" stroke="#b89656" stroke-width="1"/>
+  <line x1="234" y1="234" x2="234" y2="220" stroke="#b89656" stroke-width="1"/>
+</svg>

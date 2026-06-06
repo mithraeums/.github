@@ -28,8 +28,8 @@
     <td>
       <b><a href="https://github.com/mithraeums/hako">hako</a> Local model family + native C engine</b><br>
       <sub>From-scratch inference runtime — own loader, Q4_K/Q6_K + int8 kernels, BPE. No llama.cpp, no ollama. Qwen2.5-Coder bases + a hako SYSTEM wrap, fine-tunes queued. Live today:<br>
-      <code>hako-sho</code> — mini · 3B<br>
-      <code>hako-koi</code> — mid-small · 7B<br>
+      <code>hako-sho</code> — mini · 3B · <a href="https://huggingface.co/mithraeum/hako-sho">🤗 weights</a><br>
+      <code>hako-koi</code> — mid-small · 7B · <a href="https://huggingface.co/mithraeum/hako-koi">🤗 weights</a><br>
       koi (mid · 14B/32B) queued, samurai (max · 50B+) reserved.</sub>
     </td>
   </tr>

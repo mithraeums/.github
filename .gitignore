@@ -1,9 +1,7 @@
+# Profile repo holds ONLY the org README. Never the sibling project checkouts.
 hako/
-hako-edit/
 hako-code/
-mithraeums.github.io/
+hako-edit/
 skills/
-assets/
-*.swp
-*.DS_Store
-
+mithraeums.github.io/
+.DS_Store
