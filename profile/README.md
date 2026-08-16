@@ -47,6 +47,13 @@
       <sub>Single-file C99. vim-flavored. Splits, themes, mouse, UTF-8. Embeds the <code>hako</code> agent in a callable pane.</sub>
     </td>
   </tr>
+  <tr>
+    <td align="center"><sub>— 04 —</sub></td>
+    <td>
+      <b><a href="https://github.com/mithraeums/hako-studio">hako-studio</a> The agent in a browser · <a href="https://hako.mithraeum.studio">hako.mithraeum.studio</a></b><br>
+      <sub>The same <code>hako.c</code>, compiled to WebAssembly — so the agent runs <b>on your own device, in a tab</b>. Open it hosted with nothing installed, run the container, or serve it from the binary with <code>hako --serve</code>: one piece of software in three shapes. No backend, no database, no account; your key goes straight to the provider and your work stays on your machine. <code>--lan --token</code> puts it on your phone.</sub>
+    </td>
+  </tr>
 </table>
 
 > <b><a href="https://github.com/mithraeums/skills">skills</a></b><br>
@@ -81,6 +88,12 @@ curl -fsSL https://mithraeums.github.io/hako.sh | sh
 
 # hake · the editor
 curl -fsSL https://mithraeums.github.io/hake.sh | sh
+
+# hako studio · the agent in a browser — nothing to install
+open https://hako.mithraeum.studio
+
+# ...or serve it yourself, with real files and a shell
+hako --serve --lan --token
 
 ```
 
