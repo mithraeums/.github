@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-"""Mithraeum icon system — one vault, one block, five products.
+"""Mithraeum icon system — printed in two inks.
 
-The mark is a mithraeum arch with a block inside it: the box (箱) *is* the
-cursor, the thing that is alive under the vault. The arch never changes. The
-block is the only variable — its fill, its treatment, its colour — so the family
-reads as a family and each product still reads at 60px, which is the size that
-actually decides an icon: an iOS home screen, a macOS dock, a GitHub avatar.
+Each product is one block katakana from its name, printed in ultramarine on
+washi with the vermilion second ink knocked out of register, the way a
+risograph misprints: hako コ (the character is drawn as a box), hake ケ, hakm ム,
+studio ス. The parent, mithraeum, is Mithras' Phrygian cap.
 
-Everything is geometry. No text, no fonts: a wordmark is illegible at icon sizes
-and a font dependency makes the render machine-specific. Lettered "plate"
-versions belong in a README, not on a home screen.
+The glyph outlines are from Dela Gothic One (SIL Open Font Licence), converted
+to paths once and kept here, so rendering needs no font and no network.
 
     python3 make-icons.py     # write the SVG masters
     sh build.sh               # rasterise PNG + icns + ico into each project
@@ -19,113 +17,54 @@ import os
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 
-# Shared palette — the values the CLIs, the editor themes and the site all use.
-VOID  = "#0f0e0a"
-FRAME = "#2a2722"
-GOLD  = "#b89656"
-BONE  = "#d8d2c2"
-PHOS  = "#7a8a3a"
+WASHI = "#ece7da"     # paper
+BLUE  = "#2636c4"     # ultramarine, the first ink
+RED   = "#e2402e"     # vermilion, the second ink
+SUMI  = "#14130f"
 
-S    = 512                   # master canvas
-PAD  = 44                    # frame inset; keeps everything inside iOS masking
-CX   = S // 2
-AW   = 250                   # arch width
-AL, AR = CX - AW // 2, CX + AW // 2
-ATOP, ABOT = 150, 392        # crown and floor
-R    = AW // 2               # springline radius
+GROUND = WASHI        # the tile; BLUE here prints them as paper on ultramarine
+INK    = BLUE if GROUND == WASHI else WASHI
+MISREG = (14, 9)      # how far the second ink lands from the first
 
-BX, BY, BW, BH = CX - 46, 252, 92, 118      # the block
+GLYPHS = {
+ "コ": "<path transform=\"translate(81.1 387.6) scale(0.3513 -0.3513)\" d=\"M81 505V726H925V23H647V44H71V279H650V505Z\"/>",
+ "ケ": "<path transform=\"translate(108.7 368.4) scale(0.2988 -0.2988)\" d=\"M995 688Q975 561 975 463H918Q895 361 846.0 276.0Q797 191 725 133Q668 86 596.0 57.0Q524 28 416.5 10.5Q309 -7 143 -16Q111 74 84.0 130.0Q57 186 23 231Q66 229 140 229Q86 314 -9 396Q94 455 148.0 546.0Q202 637 213 768H494Q487 728 479 688ZM647 463H397L382 437Q319 327 215 230Q329 234 399.5 251.5Q470 269 519 302Q561 331 595.5 372.5Q630 414 647 463Z\"/>",
+ "ム": "<path transform=\"translate(103.6 370.5) scale(0.3030 -0.3030)\" d=\"M753 -5Q744 32 737 56Q564 27 396.0 12.5Q228 -2 49 -8L47 13Q39 89 31.5 140.0Q24 191 8 239H105Q205 505 265 764L538 725Q515 661 498.5 612.0Q482 563 471 530Q414 358 373 246Q540 255 664 274Q614 393 541 522L780 599Q859 454 911.0 331.0Q963 208 998 80Q934 64 878.0 44.0Q822 24 753 -5Z\"/>",
+ "ス": "<path transform=\"translate(98.4 368.7) scale(0.3175 -0.3175)\" d=\"M850 -10Q720 50 550 143Q391 46 200 -7Q162 54 123.0 107.0Q84 160 24 227Q235 252 383.5 319.5Q532 387 631 500H84V716L844 720L939 510Q852 385 741 285Q857 241 969 228Q889 91 850 -10Z\"/>"
+}
 
-
-def chassis(keystone=True):
-	"""Void plate, hairline frame, gold corner ticks, the vault, the keystone."""
-	t = 40
-	ticks = []
-	for (x, y, dx, dy) in ((PAD, PAD, 1, 1), (S - PAD, PAD, -1, 1),
-	                       (PAD, S - PAD, 1, -1), (S - PAD, S - PAD, -1, -1)):
-		ticks.append(f'<line x1="{x}" y1="{y}" x2="{x + dx * t}" y2="{y}"/>')
-		ticks.append(f'<line x1="{x}" y1="{y}" x2="{x}" y2="{y + dy * t}"/>')
-	# Keystone sits clear of the arch stroke — at 60px they merge otherwise.
-	ks = (f'<circle cx="{CX}" cy="{ATOP - 26}" r="15" fill="{GOLD}"/>'
-	      if keystone else '')
-	return f'''<rect width="{S}" height="{S}" fill="{VOID}"/>
-	<rect width="{S}" height="{S}" fill="url(#glow)"/>
-	<rect x="{PAD}" y="{PAD}" width="{S - 2 * PAD}" height="{S - 2 * PAD}"
-	      fill="none" stroke="{FRAME}" stroke-width="2"/>
-	<g stroke="{GOLD}" stroke-width="5" stroke-linecap="square">
-		{"".join(ticks)}
-	</g>
-	<path d="M{AL} {ABOT} V{ATOP + R} A{R} {R} 0 0 1 {AR} {ATOP + R} V{ABOT}"
-	      fill="none" stroke="{BONE}" stroke-width="10" stroke-linejoin="round"/>
-	<line x1="{AL - 42}" y1="{ABOT}" x2="{AR + 42}" y2="{ABOT}"
-	      stroke="{BONE}" stroke-width="10" stroke-linecap="round"/>
-	{ks}'''
+CAP = ("M148 396 L148 300 C148 196 206 124 286 116 C346 110 392 140 396 186 "
+       "C398 214 380 232 360 228 C348 226 342 214 346 204 C330 196 314 206 316 232 "
+       "C320 290 352 340 364 396 Z")
 
 
-def b_agent():
-	"""hako — a solid gold cursor. The family's base form."""
-	return f'<rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" fill="{GOLD}"/>'
-
-
-def b_editor():
-	"""hake — the cursor on a line of text. The editor is the text one."""
-	return (f'<rect x="{BX}" y="{BY - 6}" width="{BW}" height="{BH - 22}" fill="{PHOS}"/>'
-	        f'<line x1="{CX - 62}" y1="{BY + BH - 4}" x2="{CX + 62}" y2="{BY + BH - 4}" '
-	        f'stroke="{BONE}" stroke-width="12" stroke-linecap="round" opacity="0.8"/>')
-
-
-def b_engine():
-	"""hakm — the block as quantised strata: weights on disk, layers in memory."""
-	bars = []
-	for i in range(3):
-		y = BY + 22 + i * 34
-		bars.append(f'<line x1="{BX + 14}" y1="{y}" x2="{BX + BW - 14}" y2="{y}"/>')
-	return (f'<rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" fill="none" '
-	        f'stroke="{PHOS}" stroke-width="10"/>'
-	        f'<g stroke="{PHOS}" stroke-width="11" stroke-linecap="round">{"".join(bars)}</g>')
-
-
-def b_studio():
-	"""studio — a hollow block: a pane in the vault, not a cursor."""
-	return (f'<rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" fill="none" '
-	        f'stroke="{GOLD}" stroke-width="16"/>')
-
-
-def b_org():
-	"""mithraeum — the empty vault. The parent holds no product."""
-	return (f'<line x1="{CX - 86}" y1="{ATOP + R}" x2="{CX + 86}" y2="{ATOP + R}" '
-	        f'stroke="{FRAME}" stroke-width="4" stroke-dasharray="7 11"/>')
+def cap():
+	return f'<path d="{CAP}"/><rect x="128" y="384" width="256" height="40"/>'
 
 
 PRODUCTS = {
-	"mithraeum": (b_org,    True),
-	"hake":      (b_editor, True),
-	"hako":      (b_agent,  True),
-	"hakm":      (b_engine, True),
-	"studio":    (b_studio, True),
+	"hako":      lambda: GLYPHS["コ"],
+	"hake":      lambda: GLYPHS["ケ"],
+	"hakm":      lambda: GLYPHS["ム"],
+	"studio":    lambda: GLYPHS["ス"],
+	"mithraeum": cap,
 }
 
 
-def svg(name, block, keystone):
+def svg(name, mark):
+	dx, dy = MISREG
 	return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">
-	<!-- mithraeum icon system — generated by assets/icons/make-icons.py, do not hand-edit.
-	     {name}: the vault, and the block inside it. -->
-	<defs>
-		<radialGradient id="glow" cx="32%" cy="18%">
-			<stop offset="0" stop-color="#ffffff" stop-opacity="0.05"/>
-			<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-		</radialGradient>
-	</defs>
-	{chassis(keystone)}
-	{block()}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+	<!-- mithraeum icon system — generated by assets/icons/make-icons.py, do not hand-edit. {name} -->
+	<rect width="512" height="512" rx="112" fill="{GROUND}"/>
+	<g fill="{RED}" opacity="0.9" transform="translate({dx} {dy})">{mark}</g>
+	<g fill="{INK}">{mark}</g>
 </svg>
 '''
 
 
 if __name__ == "__main__":
-	for name, (block, keystone) in PRODUCTS.items():
-		path = os.path.join(OUT, f"{name}.svg")
-		with open(path, "w") as f:
-			f.write(svg(name, block, keystone))
+	for name, mark in PRODUCTS.items():
+		with open(os.path.join(OUT, f"{name}.svg"), "w") as f:
+			f.write(svg(name, mark()))
 		print(f"wrote {name}.svg")

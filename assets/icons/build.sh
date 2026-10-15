@@ -5,7 +5,7 @@
 #   sh build.sh studio     # one
 #
 # Needs rsvg-convert (brew install librsvg). iconutil/sips are macOS-stock and
-# only used for .icns; .ico needs ImageMagick and is skipped without it.
+# only used for .icns; .ico needs ImageMagick or Pillow and is skipped without both.
 set -e
 cd "$(dirname "$0")"
 
@@ -56,12 +56,17 @@ for row in $targets; do
 			&& echo "  -> $dir/$base.icns" || echo "  (icns failed)"
 	fi
 
+	png "$name" 256 "$dir/.ico-src.png"
 	if command -v magick >/dev/null 2>&1; then
-		magick "$dir/$base.png" -define icon:auto-resize=256,128,64,48,32,16 "$dir/$base.ico" \
+		magick "$dir/.ico-src.png" -define icon:auto-resize=256,128,64,48,32,16 "$dir/$base.ico" \
 			&& echo "  -> $dir/$base.ico"
+	elif python3 -c 'import PIL' 2>/dev/null; then
+		python3 -c 'import sys; from PIL import Image; Image.open(sys.argv[1]).save(sys.argv[2], sizes=[(s, s) for s in (256, 128, 64, 48, 32, 16)])' \
+			"$dir/.ico-src.png" "$dir/$base.ico" && echo "  -> $dir/$base.ico"
 	else
-		echo "  (.ico skipped — no ImageMagick; the old one still ships)"
+		echo "  (.ico skipped — needs ImageMagick or Pillow; the old one still ships)"
 	fi
+	rm -f "$dir/.ico-src.png"
 	echo "  -> $dir/$base.{svg,png}"
 done
 
