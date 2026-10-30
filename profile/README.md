@@ -1,6 +1,9 @@
 <p align="center">
   <a href="https://mithraeums.github.io">
-    <img src="https://mithraeums.github.io/assets/banner-mithraeum.png" alt="mithraeum" width="100%"/>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://mithraeums.github.io/assets/banner-mithraeum-night.png"/>
+      <img src="https://mithraeums.github.io/assets/banner-mithraeum.png" alt="mithraeum" width="100%"/>
+    </picture>
   </a>
 </p>
 

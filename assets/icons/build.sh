@@ -37,7 +37,10 @@ for row in $targets; do
 		# hako-studio wants exactly the one size the binary embeds.
 		cp "$name-180.png" "$dir/icon-180.png"
 		cp "$name.svg"     "$dir/icon.svg"
-		echo "  -> $dir/icon-180.png (run 'make embed' + rebuild the agent)"
+		png "$name" 256 "$dir/.ico-src.png"
+		python3 -c 'import sys; from PIL import Image; Image.open(sys.argv[1]).save(sys.argv[2], sizes=[(s, s) for s in (48, 32, 16)])' \
+			"$dir/.ico-src.png" "$dir/favicon.ico" && rm -f "$dir/.ico-src.png"
+		echo "  -> $dir/icon-180.png, favicon.ico (then re-embed hako_web.h in hako-code + rebuild the agent)"
 		continue
 	fi
 
@@ -69,6 +72,16 @@ for row in $targets; do
 	rm -f "$dir/.ico-src.png"
 	echo "  -> $dir/$base.{svg,png}"
 done
+
+# The site: an SVG favicon that follows the system theme (paper by day, night in dark mode),
+# PNG fallbacks in paper.
+if [ -z "$1" ] || [ "$1" = mithraeum ]; then
+	site=../../mithraeums.github.io/assets
+	cp mithraeum-auto.svg "$site/favicon.svg"
+	png mithraeum 32 "$site/favicon-32.png"
+	png mithraeum 180 "$site/apple-touch-icon.png"
+	echo "  -> $site/favicon.svg (follows the theme), favicon-32.png, apple-touch-icon.png"
+fi
 
 rm -f ./*-1024.png ./*-180.png
 echo "done."
