@@ -35,7 +35,8 @@ for row in $targets; do
 
 	if [ "$base" = "icon" ]; then
 		# hako-studio wants exactly the one size the binary embeds.
-		cp "$name-180.png" "$dir/icon-180.png"
+		# It is also the home-screen icon, so it comes from the touch master.
+		rsvg-convert -w 180 -h 180 "$name-touch.svg" -o "$dir/icon-180.png"
 		cp "$name.svg"     "$dir/icon.svg"
 		png "$name" 256 "$dir/.ico-src.png"
 		python3 -c 'import sys; from PIL import Image; Image.open(sys.argv[1]).save(sys.argv[2], sizes=[(s, s) for s in (48, 32, 16)])' \
