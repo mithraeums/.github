@@ -72,7 +72,7 @@ repo; the [site](https://mithraeums.github.io/#releases) lists them all.
     <td align="center"><sub>— VI —</sub></td>
     <td>
       <b><a href="https://github.com/mithraeums/spelaeum">spelaeum</a> · <code>spel</code> · one model, trained by many machines · <a href="https://spelaeum.mithraeum.studio">spelaeum.mithraeum.studio</a></b><br>
-      <sub>One open model, trained in rounds by whoever shows up. Each machine trains the slice of the data its key is dealt, and the jobs that make the model better go into the next block under the keys that did them. The chain is the model, replayed bit for bit, and every loss is checked in integers, so a laptop, <b>a browser tab</b> and a rented GPU score a job the same. Built on the hako engine's trainer, GPL all the way.</sub>
+      <sub>One open model, trained in rounds by whoever shows up. Each machine trains the slice of the data its key is dealt, and the jobs that make the model better go into the next block under the keys that did them. The chain is the model, replayed bit for bit, and every loss is checked in integers, so a laptop, <b>a browser tab</b> and a rented GPU score a job the same. Its loss and what it writes are redrawn after every block on <a href="https://huggingface.co/datasets/mithraeum/spelaeum/tree/main/progress">Hugging Face</a>. Built on the hako engine's trainer, GPL all the way.</sub>
     </td>
   </tr>
 </table>
